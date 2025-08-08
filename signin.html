@@ -1,34 +1,48 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <header>
-            <section class="nav">
-                <div id="nav">
-                    <a style="margin-left: 100px;" id="title" href="index.html">Organix</a>
-                </div>
-            </section>
-        </header>
-        <section class="sign">
-            <div id="sign">
-                <h2>Sign in</h2>
-                <input type="email" name="mail" placeholder="  Your email adress">
-                <input type="password" name="pwd" placeholder="  Your Password">
-                <a href="">Forgot your password?</a>
-                <button type="submit">Login</button>
-                <p>Not a member yet? <a href="signup.html">Sign up</a> in seconds.</p>
-                <ul>
-                    <li><a href="terms.html" target="_blank">Terms</a></li>
-                    <li>|</li>
-                    <li><a href="privacy.html" target="_blank">Privacy</a></li>
-                </ul>
-            </div>
-        </section>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <section class="nav">
+        <div id="nav">
+          <a style="margin-left: 100px" id="title" href="index.html">Organix</a>
+        </div>
+      </section>
+    </header>
+    <section class="sign">
+      <div id="sign">
+        <h2>Sign in</h2>
+        <input
+          type="email"
+          name="mail"
+          placeholder="Your email adress or username"
+          id="logUsername"
+        />
+        <input
+          type="password"
+          name="pwd"
+          placeholder="Your Password"
+          id="logPwd"
+        />
+        <a href="">Forgot your password?</a>
+        <button type="submit" id="loginBtn">Login</button>
+        <p>Not a member yet? <a href="signup.html">Sign up</a> in seconds.</p>
+        <ul>
+          <li><a href="terms.html" target="_blank">Terms</a></li>
+          <li>|</li>
+          <li><a href="privacy.html" target="_blank">Privacy</a></li>
+        </ul>
+      </div>
+    </section>
+    <script src="src/js/loginReg.js"></script>
+  </body>
 </html>
