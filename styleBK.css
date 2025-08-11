@@ -474,16 +474,8 @@ body {
 
 .yellow {
   background-color: var(--yellowColor) !important;
-}
-
-.yellow .taskFolderRow h3 {
   color: black;
 }
-
-.yellow .taskFolderRow .buttonRow button svg {
-  fill: black !important;
-}
-
 .orange {
   background-color: var(--orangeColor) !important;
 }
