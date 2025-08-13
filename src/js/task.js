@@ -1,14 +1,13 @@
-
+import { ADD_FOLDER_BTN } from "../../app.js";
 console.log("init from task.js");
 const addFolderBtn = ADD_FOLDER_BTN;
-import { ADD_FOLDER_BTN } from "../../app.js";
+
 
 const localTask = JSON.parse(localStorage.getItem("task")) || [];
 const localList = JSON.parse(localStorage.getItem("list")) || [];
 
-if(localList!= null){
-   localList.forEach(element => {
-        folderTask(element.content, element.folderId);
+localList.forEach(element => {
+    folderTask(element.content, element.folderId);
         // switch (element.color) {
         //     case 1 :
         //         document.getElementById(element.folderId).classList.add("blue");
@@ -33,16 +32,16 @@ if(localList!= null){
         //     break;
         //     }
         
-    });
-}
+});
 
-if(localTask!= null){
+if (localTask != null) {
     localTask.forEach(element => {
-        TaskCard(element.parent, element.content);
+        TaskCard(element.parent, element.content, element.taskId); // passer l'id
     });
 }
 
-function TaskCard(parent, taskText) {
+
+function TaskCard(parent, taskText, taskId) {
 // Task card content 
 const card = document.createElement("div");
 const cardBody = document.createElement("div");
@@ -51,25 +50,29 @@ const cardPpImg = document.createElement("img");
 const cardContent = document.createElement("h3");
 const btnSection = document.createElement("div");
 const doBtn = document.createElement("button");
+const calendarBtn = document.createElement("button")
 const removeBtn = document.createElement("button");
 const confirmRemoveYes = document.createElement("button");
 const confirmRemoveNo = document.createElement("button");
 const parentId = document.getElementById(parent)
+const inCardTime = document.createElement("span");
 
 parentId.appendChild(card);
 card.appendChild(cardBody);
 cardBody.append(cardPp,cardContent, btnSection);
 cardPp.appendChild(cardPpImg);
-btnSection.append(removeBtn, doBtn);
+btnSection.append(removeBtn, calendarBtn, doBtn);
 
 card.classList.add("cardTask");
+card.id = taskId;
 cardBody.classList.add("cardBody");
 cardPp.classList.add("cardProfPic");
 btnSection.classList.add("btnSectionCard");
 cardContent.textContent = taskText;
 
 doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Z"/></svg>`;
-removeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1b1b1b89"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>`;
+calendarBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/></svg>`;
+removeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#87878789"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>`;
 
 
 cardPpImg.src = "https://i.pinimg.com/736x/b7/51/99/b75199056b5dd384275a7728f0fc289c.jpg";
@@ -111,14 +114,60 @@ doBtn.addEventListener("click", () => {
     switch (state){
         case 1:
             doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Z"/></svg>`;
-        state = 0;
+            cardContent.classList.remove("strikethrough")
+            state = 0;
         break;
         case 0:
             doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m424-312 282-282-56-56-226 226-114-114-56 56 170 170ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>`;
-        state = 1;
+            cardContent.classList.add("strikethrough")
+            state = 1;
         break
         }
 })
+
+  //* ########################### Calendar Btn ####################
+  calendarBtn.addEventListener("click", () => {
+    const dateInput = document.createElement("input");
+    const timeRemaining = Date.now();
+
+    dateInput.type = "date";
+    dateInput.style.display = "none";
+    cardBody.appendChild(dateInput);
+
+    if (dateInput.showPicker) {
+      dateInput.showPicker();
+    } else {
+      dateInput.click();
+    }
+
+    dateInput.addEventListener("change", () => {
+      let deadLine = new Date(dateInput.value).getTime();
+      const timeRemainingMs = deadLine - timeRemaining;
+      let days = Math.floor(timeRemainingMs / (1000 * 60 * 60 * 24));
+      timeCard(days);
+      console.log(days + " days left");
+    });
+  });
+
+  function timeCard(time) {
+    cardBody.after(inCardTime);
+    if (time >= 0) {
+      inCardTime.textContent = time + " days left";
+      inCardTime.classList.remove("timeWarn");
+        inCardTime.classList.remove("timeDanger");
+      if (time < 2 && time >= 1) {
+        inCardTime.classList.add("timeWarn");
+        inCardTime.classList.remove("timeDanger");
+        inCardTime.textContent = time + " day left";
+      } else if (time < 1) {
+        inCardTime.textContent = "Less a day left";
+        inCardTime.classList.remove("timeWarn");
+        inCardTime.classList.add("timeDanger");
+      }
+    } else {
+      return;
+    }
+  }
 
 removeBtn.addEventListener("click", () => {
     btnSection.removeChild(removeBtn);
@@ -132,10 +181,23 @@ btnSection.removeChild(confirmRemoveNo);
 })
 
 confirmRemoveYes.addEventListener("click", () => {
+    const cardId = card.id;
+    removeItemByIdFromLocalStorage(cardId);
     parentId.removeChild(card);
-    //! a faire
-
 })
+}
+
+function removeItemByIdFromLocalStorage(idToRemove) {
+    // Récupérer la liste complète depuis localStorage
+    let tasks = JSON.parse(localStorage.getItem("task")) || [];
+    console.log(tasks)
+    const idNum = Number(idToRemove);
+    console.log(idNum);
+    // Filtrer le tableau pour garder tous les éléments sauf celui avec l'id à supprimer
+    tasks = tasks.filter(item => item.taskId !== idNum);
+
+    // Réécrire la liste modifiée dans localStorage
+    localStorage.setItem("task", JSON.stringify(tasks));
 }
 
 let colorFolder;
@@ -149,7 +211,7 @@ function folderTask(name, folderId) {
     const taskFolderBtnColor = document.createElement("button");
     const taskFolderBtnSettings = document.createElement("button");
     const inTaskFolder = document.createElement("div");
-    folderId = Date.now();
+    folderId = folderId || Date.now();
 
     taskFolderCard.classList.add("taskFolder");
     taskFolderRow.classList.add("taskFolderRow");
@@ -167,7 +229,7 @@ function folderTask(name, folderId) {
     taskFolderTitle.textContent = name;
     addTaskBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>`
     taskFolderBtnColor.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80Zm0-400Zm-220 40q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120-160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm200 0q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120 160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17ZM480-160q9 0 14.5-5t5.5-13q0-14-15-33t-15-57q0-42 29-67t71-25h70q66 0 113-38.5T800-518q0-121-92.5-201.5T488-800q-136 0-232 93t-96 227q0 133 93.5 226.5T480-160Z"/></svg>`;
-    taskFolderBtnSettings.innerHTML = `<svgxmlns="http://www.w3.org/2000/svg"height="25px"viewBox="0 -960 960 960"width="25px"fill="#e3e3e3"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/></svg>`;
+    taskFolderBtnSettings.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg"height="25px"viewBox="0 -960 960 960"width="25px"fill="#e3e3e3"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/></svg>`;
 
     
     let color = 0;
@@ -176,10 +238,14 @@ function folderTask(name, folderId) {
 
     addTaskBtn.addEventListener("click", () => {
         let taskId = Date.now();
-        let taskContent;
         let tasks = JSON.parse(localStorage.getItem("task")) || [];
-        const newTask = prompt("Ajouter une nouvelle tache :",taskContent );
-        const task = {
+        const newTask = prompt("Ajouter une nouvelle tache :");
+
+    if (newTask === "" || newTask === null){
+        return;
+    }
+
+    const task = {
         taskId: taskId,
         content: newTask,
         parent: folderId
@@ -187,11 +253,7 @@ function folderTask(name, folderId) {
     tasks.push(task);
     localStorage.setItem("task", JSON.stringify(tasks));
 
-
-    if (newTask === "" || newTask === null){
-        return;
-    }
-    TaskCard(folderId, newTask);
+    TaskCard(folderId, newTask, taskId);
     })
 
     //* Edit title
@@ -220,6 +282,31 @@ function folderTask(name, folderId) {
             }
         })
     })
+
+    //* ########################### Settings btn ############################
+  let settings = false;
+  taskFolderBtnSettings.addEventListener("click", () => {
+    const deleteList = document.createElement("button");
+    deleteList.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>`;
+    deleteList.id = "deleteListBtn";
+
+    if (settings === false) {
+      taskFolderBtnRow.removeChild(addTaskBtn);
+      taskFolderBtnRow.removeChild(taskFolderBtnColor);
+      taskFolderBtnSettings.before(deleteList);
+
+      settings = true;
+    } else {
+      const deleteBtnFromId = document.querySelector("#deleteListBtn");
+      taskFolderBtnRow.removeChild(deleteBtnFromId);
+      taskFolderBtnRow.append(
+        addTaskBtn,
+        taskFolderBtnColor,
+        taskFolderBtnSettings
+      );
+      settings = false;
+    }
+  });
 
     //* Bouttons couleurs
 
@@ -307,7 +394,7 @@ addFolderBtn.addEventListener("click", () => {
 
     const folderId = Date.now();
 
-    folderTask(name, colorFolder, folderId);
+    folderTask(name, folderId);
 
     //* Listes localStorage
     let lists = JSON.parse(localStorage.getItem("list")) || [];
