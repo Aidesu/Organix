@@ -7,6 +7,7 @@ const addFolderBtn = ADD_FOLDER_BTN;
 const localTask = JSON.parse(localStorage.getItem("task")) || [];
 const localList = JSON.parse(localStorage.getItem("list")) || [];
 
+//* ######### Boucle dans le localSotrage pour la creation des elements 
 localList.forEach(element => {
     folderTask(element.content, element.folderId, element.color);
 });
@@ -17,9 +18,8 @@ if (localTask != null) {
     });
 }
 
-
-function TaskCard(parent, taskText, taskId, timeLeft) {
-// Task card content 
+//* ########################### Create card function ###########################
+function TaskCard(parent, taskText, taskId, timeLeft, status) {
 const card = document.createElement("div");
 const cardBody = document.createElement("div");
 const cardPp = document.createElement("div");
@@ -34,6 +34,9 @@ const confirmRemoveNo = document.createElement("button");
 const parentId = document.getElementById(parent)
 const inCardTime = document.createElement("span");
 
+timeLeft = timeLeft || null;
+status = status;
+
 parentId.appendChild(card);
 card.appendChild(cardBody);
 cardBody.append(cardPp,cardContent, btnSection);
@@ -41,7 +44,10 @@ cardPp.appendChild(cardPpImg);
 btnSection.append(removeBtn, calendarBtn, doBtn);
 
 if (timeLeft !== null){
-    timeCard(timeLeft)
+    const currentTime = Date.now();
+    const timeRemaining = timeLeft - currentTime;
+    const daysLeft = timeRemaining / (1000 * 60 * 60 * 24);
+    timeCard(daysLeft.toFixed(0));
 }
 
 card.classList.add("cardTask");
@@ -51,8 +57,13 @@ cardPp.classList.add("cardProfPic");
 btnSection.classList.add("btnSectionCard");
 cardContent.textContent = taskText;
 
+if (status !== true){
 doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Z"/></svg>`;
-calendarBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/></svg>`;
+}else {
+    doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m424-312 282-282-56-56-226 226-114-114-56 56 170 170ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>`;
+    cardContent.classList.add("strikethrough");
+}
+calendarBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#87878789"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/></svg>`;
 removeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#87878789"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>`;
 
 
@@ -63,6 +74,7 @@ confirmRemoveYes.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24
 
 dragAndDrop();
 
+//* ########################### Modification du contenu de la task ###########################
 cardContent.addEventListener("dblclick", () => {
 
     const tasks = JSON.parse(localStorage.getItem("task")) || [];
@@ -75,6 +87,7 @@ cardContent.addEventListener("dblclick", () => {
     cardContent.replaceWith(editCardTitle);
     editCardTitle.focus();
 
+//* ########################### Affecter la modification / supression  ###########################
     editCardTitle.addEventListener("keydown", (e) => {
         if (e.key === "Enter" && editCardTitle.value !== ""){
             const newTitle = editCardTitle.value;
@@ -101,24 +114,42 @@ cardContent.addEventListener("dblclick", () => {
 
 
 let state = 0;
-
+//* ########################### Boutton a cocher ###########################
 doBtn.addEventListener("click", () => {
+    const tasks = JSON.parse(localStorage.getItem("task")) || [];
+    const idx = tasks.findIndex(i => i.taskId === taskId);
 
     switch (state){
         case 1:
-            doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Z"/></svg>`;
-            cardContent.classList.remove("strikethrough");
+            statusNo()
+            if (idx !== -1){
+                tasks[idx].status = false;
+                localStorage.setItem("task", JSON.stringify(tasks));
+            }
             state = 0;
         break;
         case 0:
-            doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m424-312 282-282-56-56-226 226-114-114-56 56 170 170ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>`;
-            cardContent.classList.add("strikethrough");
+            statusYes()
+            if (idx !== -1){
+                tasks[idx].status = true
+                localStorage.setItem("task", JSON.stringify(tasks));
+            }
             state = 1;
         break
         }
 })
+//* ########################### Modification du boutton a cocher ###########################
+function statusYes() {
+    doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m424-312 282-282-56-56-226 226-114-114-56 56 170 170ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>`;
+    cardContent.classList.add("strikethrough");
+}
 
-  //* ########################### Calendar Btn ###########################
+function statusNo() {
+    doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Z"/></svg>`;
+            cardContent.classList.remove("strikethrough");
+}
+
+  //* ########################### Boutton calendrier ###########################
   calendarBtn.addEventListener("click", () => {
     const tasks = JSON.parse(localStorage.getItem("task")) || [];
     const dateInput = document.createElement("input");
@@ -134,6 +165,7 @@ doBtn.addEventListener("click", () => {
       dateInput.click();
     }
 
+//* ################ calcul du temps qu'il reste pour terminer la tache ################
     dateInput.addEventListener("change", () => {
       let deadLine = new Date(dateInput.value).getTime();
       const timeRemainingMs = deadLine - timeRemaining;
@@ -141,14 +173,14 @@ doBtn.addEventListener("click", () => {
       const idx = tasks.findIndex(i => Number(i.taskId) === Number(taskId));
 
       if (idx !== -1){
-        tasks[idx].timeLeft = days;
+        tasks[idx].timeLeft = deadLine;
         localStorage.setItem("task", JSON.stringify(tasks));
       }
       timeCard(days);
       console.log(days + " days left");
     });
   });
-
+//* ################ Attribution du texte pour le temps restant ################
   function timeCard(time) {
     cardBody.after(inCardTime);
     if (time >= 0) {
@@ -169,12 +201,14 @@ doBtn.addEventListener("click", () => {
     }
   }
 
+  //* ################ Boutton supprimer vers la confimation ################
 removeBtn.addEventListener("click", () => {
     btnSection.removeChild(removeBtn);
     btnSection.removeChild(doBtn);
     btnSection.removeChild(calendarBtn);
     btnSection.append(confirmRemoveNo, confirmRemoveYes);})
 
+//* ################ confirmation de la supression de la taches ################
     confirmRemoveNo.addEventListener("click", () => {
 btnSection.removeChild(confirmRemoveNo);
     btnSection.removeChild(confirmRemoveYes);
@@ -187,7 +221,7 @@ confirmRemoveYes.addEventListener("click", () => {
     parentId.removeChild(card);
 })
 }
-//* ######################################################################
+//* ######################### Function de supression des taches ###########################
 function removeTask(idToRemove) {
     let tasks = JSON.parse(localStorage.getItem("task")) || [];
     const idNum = Number(idToRemove);
@@ -208,8 +242,8 @@ function removeList(idToRemove) {
     localStorage.setItem("task", JSON.stringify(newTasks));
     localStorage.setItem("list", JSON.stringify(newLists));
 }
-//* #####################################################################
 
+//* ######################### Creation des listes (folder) #################################
 function folderTask(name, folderId, colorId) {
     const taskFolderCard = document.createElement("div");
     const taskFolderRow = document.createElement("div");
@@ -242,7 +276,7 @@ function folderTask(name, folderId, colorId) {
     const colors = ["blue", "yellow", "orange", "purple", "pink", "green", "red"];
     taskFolderCard.classList.add(colors[colorId]);
 
-    //* Bouttons ajouter une tache
+    //* ################ Bouttons ajouter une tache ################
 
     addTaskBtn.addEventListener("click", () => {
         let taskId = Date.now();
@@ -253,11 +287,13 @@ function folderTask(name, folderId, colorId) {
         return;
     }
 
+    //* ################ Ajout des taches dans le localStorage ################
     const task = {
         taskId: taskId,
         content: newTask,
         parent: folderId,
-        timeLeft: null
+        timeLeft: null,
+        status: false
     };
     tasks.push(task);
     localStorage.setItem("task", JSON.stringify(tasks));
@@ -265,14 +301,14 @@ function folderTask(name, folderId, colorId) {
     TaskCard(folderId, newTask, taskId);
     })
 
-    //* Edit title
+    //* ################ Changement de titre des listes ################
 
     taskFolderTitle.addEventListener("dblclick", () => {
 
         const lists = JSON.parse(localStorage.getItem("list")) || [];
         const currentTitle = taskFolderTitle.textContent;
         const editFolderTitle = document.createElement("input")
-        editFolderTitle.classList.add("editTitle");
+        editFolderTitle.classList.add("editTitleFolder");
         editFolderTitle.type = "text";
         editFolderTitle.value = currentTitle;
 
@@ -298,7 +334,7 @@ function folderTask(name, folderId, colorId) {
         })
     })
 
-    //* ########################### Settings btn ############################
+    //* ########################### Settings btn ###########################
   let settings = false;
   taskFolderBtnSettings.addEventListener("click", () => {
     deleteList.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>`;
@@ -322,7 +358,7 @@ function folderTask(name, folderId, colorId) {
     }
   });
 
-//* ########################## deleteFolderBtn ##############################
+//* ########################### deleteFolderBtn ###########################
 
         deleteList.addEventListener("click", () => {
             if (confirm(`Confirmez la supression de la liste` ) == true){
@@ -337,7 +373,7 @@ function folderTask(name, folderId, colorId) {
         })
         
 
-    //* Bouttons couleurs
+    //* ########################### Bouttons couleurs ###########################
 
     taskFolderBtnColor.addEventListener("click", () => {
 
@@ -418,6 +454,7 @@ function folderTask(name, folderId, colorId) {
         }
     })
 
+    //* ################ Save les couleurs dans le localStorage ################
     function colorLocalStorage (colors) {
         const lists = JSON.parse(localStorage.getItem("list")) || [];
 
@@ -430,6 +467,8 @@ function folderTask(name, folderId, colorId) {
 }
 }
 
+//* ################ Boutton creation de listes ################
+
 let colorIter = 0;
 
 addFolderBtn.addEventListener("click", () => {
@@ -441,6 +480,7 @@ addFolderBtn.addEventListener("click", () => {
         return;
     }
 
+    //* ######## Affectation d'une couleurs differente a chaque liste creer ########
     const defaultColor = colorIter;
     if (colorIter >= 0 && colorIter < 6){
         colorIter ++;
@@ -451,7 +491,7 @@ addFolderBtn.addEventListener("click", () => {
 
     folderTask(name, folderId, defaultColor);
 
-    //* Listes localStorage
+    //* ########################### Listes localStorage ###########################
     let lists = JSON.parse(localStorage.getItem("list")) || [];
     const list = {
         content: name,

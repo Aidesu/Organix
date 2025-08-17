@@ -380,7 +380,7 @@ body {
 }
 
 .contentTasks .cardTask .cardBody h3 {
-  width: 75%;
+  width: 65%;
   overflow: hidden;
   margin: 0;
   margin-left: 1rem;
@@ -466,7 +466,7 @@ body {
 }
 
 .strikethrough {
-  text-decoration: line-through;
+  text-decoration: line-through 2px;
 }
 
 .inTaskFolder {
@@ -520,7 +520,15 @@ body {
 .editTitle {
   background-color: transparent;
   margin-left: 1rem;
-  width: 75%;
+  width: 65%;
+}
+
+.editTitleFolder {
+  background-color: transparent;
+  margin-left: 1rem;
+  width: 65%;
+  margin-top: 0.2rem;
+  font-size: 18px;
 }
 
 .timeWarn {
