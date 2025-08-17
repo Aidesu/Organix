@@ -1,7 +1,7 @@
 let selectedCard = null;
 
 export function dragAndDrop() {
-    //* ######## Attribution drag a l'element card 
+    //* ######## Attribution drag a l'element task et verification si elle est deja initialiser via dndInit
   document.querySelectorAll(".cardTask").forEach(card => {
     if (card.dataset.dndInit === "1") return;
     card.draggable = true;
@@ -21,7 +21,7 @@ export function dragAndDrop() {
     card.dataset.dndInit = "1";
   });
 
-    //* ######## boucler sur toute les listes 
+    //* ######## boucler sur toute les listes et verification si elle est deja initialiser via dndInit
   document.querySelectorAll(".taskFolder").forEach(folder => {
     if (folder.dataset.dndInit === "1") return;
 

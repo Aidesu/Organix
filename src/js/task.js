@@ -14,7 +14,7 @@ localList.forEach(element => {
 
 if (localTask != null) {
     localTask.forEach(element => {
-        TaskCard(element.parent, element.content, element.taskId, element.timeLeft); // passer l'id
+        TaskCard(element.parent, element.content, element.taskId, element.timeLeft, element.status); // passer l'id
     });
 }
 
@@ -57,11 +57,10 @@ cardPp.classList.add("cardProfPic");
 btnSection.classList.add("btnSectionCard");
 cardContent.textContent = taskText;
 
-if (status !== true){
-doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Z"/></svg>`;
+if (!status){
+    statusNo()
 }else {
-    doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m424-312 282-282-56-56-226 226-114-114-56 56 170 170ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>`;
-    cardContent.classList.add("strikethrough");
+    statusYes()
 }
 calendarBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#87878789"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/></svg>`;
 removeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#87878789"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>`;
@@ -113,40 +112,33 @@ cardContent.addEventListener("dblclick", () => {
 })
 
 
-let state = 0;
 //* ########################### Boutton a cocher ###########################
 doBtn.addEventListener("click", () => {
     const tasks = JSON.parse(localStorage.getItem("task")) || [];
     const idx = tasks.findIndex(i => i.taskId === taskId);
 
-    switch (state){
-        case 1:
-            statusNo()
-            if (idx !== -1){
-                tasks[idx].status = false;
-                localStorage.setItem("task", JSON.stringify(tasks));
-            }
-            state = 0;
-        break;
-        case 0:
-            statusYes()
-            if (idx !== -1){
-                tasks[idx].status = true
-                localStorage.setItem("task", JSON.stringify(tasks));
-            }
-            state = 1;
-        break
-        }
+    if (idx === -1) return;
+
+    tasks[idx].status = !tasks[idx].status;
+    localStorage.setItem("task", JSON.stringify(tasks));
+
+    if (tasks[idx].status) {
+        statusYes();
+    } else {
+        statusNo();
+    }
 })
-//* ########################### Modification du boutton a cocher ###########################
+//* ######################## Function Modification du boutton a cocher ########################
 function statusYes() {
     doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m424-312 282-282-56-56-226 226-114-114-56 56 170 170ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>`;
     cardContent.classList.add("strikethrough");
+    card.removeChild(inCardTime);
+
 }
 
 function statusNo() {
     doBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Z"/></svg>`;
-            cardContent.classList.remove("strikethrough");
+    cardContent.classList.remove("strikethrough");
 }
 
   //* ########################### Boutton calendrier ###########################
