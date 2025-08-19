@@ -3,7 +3,6 @@ import { dragAndDrop } from "./dragNDrop.js";
 console.log("init from task.js");
 const addFolderBtn = ADD_FOLDER_BTN;
 
-
 const localTask = JSON.parse(localStorage.getItem("task")) || [];
 const localList = JSON.parse(localStorage.getItem("list")) || [];
 
