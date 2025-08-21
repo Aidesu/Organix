@@ -1,10 +1,10 @@
 :root {
   --textcolor: #f1f1f1;
   --bgcolor: #333;
-  --secondback: #242424cf;
+  --secondback: #1e1e1eb6;
   --linkcolor: #df62d8;
   --enterboxbg: #2e2e2eb5;
-  --buttondark: #1c1c1c;
+  --buttondark: #151515;
   --actbuttondark: #ae5454;
   --blueColor: #328fec;
   --yellowColor: #ece21e;
@@ -14,6 +14,7 @@
   --pinkColor: #df62d8;
   --redColor: #971f1f;
   --dangerColor: #d30808;
+  --cardBackground: #13131363;
 }
 
 @media screen and (max-width: 1200px) {
@@ -36,6 +37,29 @@
 body {
   background-color: var(--bgcolor);
   background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+.bodyMainPage {
+  background: linear-gradient(#328fec, rgb(31, 31, 31)) !important;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+footer {
+  margin-top: 15rem;
+  width: 100%;
+  height: 10rem;
+  background-color: var(--buttondark);
+  padding: 2rem;
+}
+
+footer a {
+  font-size: 12px;
 }
 
 .main strong {
@@ -97,7 +121,7 @@ body {
   font-style: normal;
 }
 
-#bloc1 h2 {
+#bloc1 h1 {
   font-size: 100px;
   font-style: normal;
   font-weight: 400;
@@ -563,4 +587,198 @@ body {
 
 #barUl button:hover {
   transform: scale(1.1);
+}
+
+.mainPageContent {
+  margin-top: 20rem;
+  margin-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.containUwU {
+  width: 45rem;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 4rem;
+  padding-top: 2rem;
+  background-color: var(--cardBackground);
+  flex-direction: column;
+  border-radius: 15px;
+}
+
+.mainPageContent p {
+  text-align: center;
+}
+
+.mainPageContent article {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+}
+
+.mainPageContent #withOrganix ol li {
+  margin-top: 0.5rem;
+}
+
+#withOrganix h3 {
+  text-align: center;
+}
+.mainPageContent1Col {
+  display: flex;
+  margin: 0 auto;
+  width: 50rem;
+}
+
+.mainPageContent1Col h3 {
+  text-align: center;
+}
+
+.mainPagePictures picture img {
+  border-radius: 15px;
+  height: auto;
+  margin: 0 auto;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+}
+
+.mainPagePictures {
+  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.mainPagePictures h3 {
+  text-align: center;
+  font-weight: 400;
+}
+
+.mainPagePricing {
+  margin-top: 5rem;
+}
+
+.mainPagePricing ul {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.mainPagePricing div {
+  padding: 2rem;
+  border-radius: 15px;
+  background: linear-gradient(#328fec, rgb(200, 54, 210));
+  border: solid white 1px;
+}
+
+.mainPagePricing ol {
+  font-size: 15px;
+}
+
+.mainPagePricing button {
+  background-color: var(--buttondark);
+  width: 10rem;
+  height: 2rem;
+  border-radius: 15px;
+}
+
+.mainPagePricing button:hover {
+  transform: scale(1.1);
+}
+
+.cardPricing {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  width: 20rem;
+}
+
+.mainPagePricing h3 {
+  text-align: center;
+}
+
+.mainPageContainerUwU {
+  margin-top: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  align-items: center;
+}
+
+.mainPageContainerUwU form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--cardBackground);
+  width: 30rem;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 15px;
+}
+
+.mainPageContainerUwU form input {
+  width: 20rem;
+  height: 2rem;
+  padding: 1rem;
+  border-radius: 15px;
+  background-color: var(--buttondark);
+  margin-bottom: 1rem;
+}
+
+.mainPageContainerUwU form h3 {
+  font-size: 25px;
+}
+
+.mainPageContainerUwU form li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainPageContainerUwU form label {
+  margin-bottom: 0.2rem;
+}
+
+.mainPageContainerUwU form textarea {
+  background-color: var(--buttondark);
+  border-radius: 15px;
+  width: 25rem;
+  height: 10rem;
+  padding: 1rem;
+}
+
+.mainPageContainerUwU form button {
+  background-color: var(--buttondark);
+  width: 6rem;
+  height: 2rem;
+  border-radius: 15px;
+}
+
+.mainPageContainerUwU form button:hover {
+  transform: scale(1.1);
+}
+
+.mainPagePartener {
+  margin-top: 10rem;
+}
+
+.mainPagePartener h3 {
+  text-align: center;
+  font-size: 25px;
+}
+
+.divPartener {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.divPartener img {
+  width: 4rem;
+  height: 4rem;
 }
