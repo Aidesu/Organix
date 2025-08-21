@@ -21,6 +21,45 @@
   .contentTasks {
     grid-template-columns: repeat(2, 400px) !important ;
   }
+
+  .mainPagePricing ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .directory ul {
+    justify-content: space-around !important;
+    gap: 4rem !important;
+  }
+
+  .containUwU {
+    width: 95% !important;
+    margin: 0 auto;
+  }
+
+  .mainPagePictures picture img {
+    width: 95% !important;
+  }
+  .mainPageContent1Col {
+    width: 90% !important;
+  }
+
+  .mainPageContainerUwU form {
+    width: 90% !important;
+  }
+
+  .mainPageContainerUwU form textarea {
+    width: 90% !important;
+  }
+
+  #bloc1 h1 {
+    font-size: 50px !important;
+  }
+
+  #bloc1 h2 {
+    font-size: 20px;
+  }
 }
 
 * {
@@ -58,8 +97,9 @@ footer {
   padding: 2rem;
 }
 
-footer a {
-  font-size: 12px;
+footer p {
+  margin-top: 2rem;
+  text-align: center;
 }
 
 .main strong {
@@ -89,7 +129,6 @@ footer a {
 
 #nav a {
   margin-left: 2rem;
-  margin-right: 2rem;
 }
 
 #nav a:hover {
@@ -130,7 +169,7 @@ footer a {
 .directory ul {
   display: flex;
   justify-content: center;
-  gap: 400px;
+  gap: 20rem;
   padding-right: 100px;
 }
 
@@ -446,10 +485,6 @@ footer a {
   border-radius: 50%;
 }
 
-.contentTasks .cardTask span {
-  margin-left: 1rem;
-}
-
 .contentTasks .taskFolder {
   height: auto;
   width: 400px;
@@ -762,10 +797,6 @@ footer a {
   transform: scale(1.1);
 }
 
-.mainPagePartener {
-  margin-top: 10rem;
-}
-
 .mainPagePartener h3 {
   text-align: center;
   font-size: 25px;
@@ -774,11 +805,33 @@ footer a {
 .divPartener {
   display: flex;
   justify-content: center;
-  gap: 2rem;
   margin-top: 2rem;
+}
+
+.mainPagePartener {
+  margin-top: 10rem;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 20px 0;
+}
+
+.divPartener {
+  display: inline-flex;
+  animation: scroll 60s linear infinite;
 }
 
 .divPartener img {
   width: 4rem;
   height: 4rem;
+  margin: 0 20px;
+  flex-shrink: 0;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }

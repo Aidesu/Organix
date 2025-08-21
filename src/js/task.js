@@ -55,6 +55,14 @@ cardBody.classList.add("cardBody");
 cardPp.classList.add("cardProfPic");
 btnSection.classList.add("btnSectionCard");
 cardContent.textContent = taskText;
+cardPpImg.alt = "profile picture";
+
+doBtn.ariaLabel = "check";
+calendarBtn.ariaLabel = "set time for task";
+removeBtn.ariaLabel = "remove task";
+confirmRemoveYes.ariaLabel = "confirm remove task";
+confirmRemoveNo.ariaLabel = "cancel remove task";
+
 
 if (!status){
     statusNo()
@@ -252,6 +260,11 @@ function folderTask(name, folderId, colorId) {
     taskFolderBtnRow.classList.add("buttonRow");
     inTaskFolder.classList.add("inTaskFolder");
     inTaskFolder.id = folderId;
+    addTaskBtn.ariaLabel = "add task";
+    taskFolderBtnColor.ariaLabel = "change color";
+    taskFolderBtnSettings.ariaLabel = "list settings";
+    deleteList.ariaLabel = "delete list";
+
 
     document.querySelector(".contentTasks").appendChild(taskFolderCard);
     taskFolderCard.append(taskFolderRow,inTaskFolder);
